@@ -7,7 +7,7 @@ This Project is built in C# using Asp.Net Core 3 and Entity framework.
 
 ### Project setup
 * Just clone the project and open it in visual studios community or professional any version will work with it
-* setup your stripe account and add your secret key and public key in the appsconfig file
+* setup your stripe account and add your secret key and public key in the appssetting json file
 * run the code...
 * if you face any issues or errors contact me on instagtam furqaan_siddiqui
 
