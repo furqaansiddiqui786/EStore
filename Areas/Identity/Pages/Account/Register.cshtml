@@ -1,0 +1,99 @@
+﻿@page
+@model RegisterModel
+@using FlipShop_OnlineShopping.utilities
+@{
+    ViewData["Title"] = "Register";
+}
+
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h4>Create a new account.</h4><hr />
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Input.Name"></label>
+                <input asp-for="Input.Name" class="form-control" />
+                <span asp-validation-for="Input.Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.PhoneNumber"></label>
+                <input asp-for="Input.PhoneNumber" class="form-control" />
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.Email"></label>
+                <input asp-for="Input.Email" class="form-control" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.Password"></label>
+                <input asp-for="Input.Password" class="form-control" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.ConfirmPassword"></label>
+                <input asp-for="Input.ConfirmPassword" class="form-control" />
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.StreetAddress"></label>
+                <input asp-for="Input.StreetAddress" class="form-control" />
+                <span asp-validation-for="Input.StreetAddress" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.City"></label>
+                <input asp-for="Input.City" class="form-control" />
+                <span asp-validation-for="Input.City" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.PostalCode"></label>
+                <input asp-for="Input.PostalCode" class="form-control" />
+                <span asp-validation-for="Input.PostalCode" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.State"></label>
+                <input asp-for="Input.State" class="form-control" />
+                <span asp-validation-for="Input.State" class="text-danger"></span>
+            </div>
+
+
+            @if (User.IsInRole(SD.SuperAdminUser))
+            {
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <input type="radio" checked name="UserRole" value="@SD.AdminUser" />@SD.AdminUser
+                    </div>
+                    <div class="col-md-6">
+                        <input type="radio" name="UserRole" value="@SD.SuperAdminUser" />@SD.SuperAdminUser
+                    </div>
+                </div>
+            }
+
+
+            <button type="submit" class="btn btn-primary form-control">Register</button>
+        </form>
+    </div>
+    <div class="col-md-6 col-md-offset-2">
+        <div class="container-fluid">
+            <div class="p-5">
+                <h4>Create a free account and shop anywhere in India</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

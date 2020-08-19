@@ -1,0 +1,91 @@
+﻿@model FlipShop_OnlineShopping.Models.ViewModel.ProductAndCategoryViewModel
+@using FlipShop_OnlineShopping.Extensions
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit Products</h1>
+<hr />
+<br />
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+<div class="container">
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group row">
+            <div class="col-3">
+                <h4><label asp-for="Products.CategoryId" class="control-label"></label></h4>
+            </div>
+            <div class="col-9">
+                <select id="ddlCategorylist" asp-for="Products.CategoryId" asp-items="Model.CategoryList.ToSelectListItem(Model.Products.CategoryId)" class="form-control"></select>
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <div class="col-3">
+                <h4><label asp-for="Products.Name" class="control-label"></label></h4>
+            </div>
+            <div class="col-9">
+                <input asp-for="Products.Name" class="form-control" />
+                <span asp-validation-for="Products.Name" class="text-danger"></span>
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <div class="col-3">
+                <h4><label asp-for="Products.About" class="control-label"></label></h4>
+            </div>
+            <div class="col-9">
+                <textarea cols="10" rows="8" asp-for="Products.About" class="form-control" ></textarea>
+                <span asp-validation-for="Products.About" class="text-danger"></span>
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <div class="col-3">
+                <h4><label asp-for="Products.ProductPhoto" class="control-label"></label></h4>
+            </div>
+            <div class="col-9">
+                <input type="file" name="file" value="file" asp-for="Products.ProductPhoto" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-3">
+                <h4><label asp-for="Products.Price" class="control-label"></label></h4>
+            </div>
+            <div class="col-9">
+                <input asp-for="Products.Price" class="form-control" />
+                <span asp-validation-for="Products.Price" class="text-danger"></span>
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <div class="col-3"></div>
+
+            <div class="col-9">
+                <div class="row">
+                    <div class="col-6">
+                        <input type="submit" value="Update Product" class="btn btn-primary form-control" />
+                    </div>
+                    <div class="col-6">
+                        <a asp-action="Index" class="btn btn-success form-control">Back to list</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

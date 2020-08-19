@@ -1,0 +1,90 @@
+﻿@model IEnumerable<ApplicationUser>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-6 col-sm-5">
+            <h2>All Employee Users</h2>
+        </div>
+        <div class="col-md-6 col-sm-5">
+            <div class="text-right">
+                <a asp-area="Identity" asp-controller="Account" asp-action="Register" class="btn btn-info">Add Employee Users</a>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+    <br />
+
+        <form class="wrap">
+            <div class="search">
+                <input value="@ViewData["GetUsers"]" name="userSearch" type="text" class="searchTerm" placeholder="search users">
+                <button type="search" value="search" class="searchButton">
+                    <i class="fa fa-search"></i>
+                </button>
+                &nbsp;<a asp-action="Index"><i class="fas fa-sync fa-lg text-info" style="padding-left:10px;"></i></a>
+            </div>
+        </form>
+
+        <br />
+
+
+
+        @if (Model.Count() > 0)
+        {
+            <form method="post">
+                <table class="table table-striped border table-condensed p-2">
+                    <tr class="table-primary">
+                        <th>@Html.DisplayNameFor(m => m.Name)</th>
+                        <th>@Html.DisplayNameFor(m => m.PhoneNumber)</th>
+                        <th></th>
+                        <th>Lock/Unlock</th>
+                        <th>Remove</th>
+                    </tr>
+                    @foreach (var users in Model)
+                    {
+                        <tr>
+                            <th>
+                                @Html.DisplayFor(m => users.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayFor(m => users.PhoneNumber)
+                            </th>
+
+                            <th></th>
+
+
+                            <th>
+                                @if (users.LockoutEnd == null || users.LockoutEnd < DateTime.Now)
+                                {
+                                    <button class="btn btn-danger" asp-action="Lock" asp-route-id="@users.Id"><i class="fas fa-lock"> Lock user</i></button>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-success" asp-action="UnLock" asp-route-id="@users.Id"><i class="fas fa-lock-open"> UnLock user</i></button>
+                                }
+                            </th>
+
+                            <th>
+                                <button class="btn btn-danger" asp-action="Remove" asp-route-id="@users.Id"><i class="fas fa-trash"> Remove</i></button>
+                            </th>
+                        </tr>
+                    }
+                </table>
+            </form>
+
+        }
+        else
+        {
+            <h3 class="text-black-50 text-center">No User Found</h3>
+        }
+
+
+</div>
+
+
+

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<ProductsModel>
+@using ReflectionIT.Mvc.Paging
+@addTagHelper *, Reflection.Mvc.Paging
+
+
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+<br />
+
+<div class="container">
+
+    @if (Model.Count() > 0)
+    {
+        <h3>Our Products</h3>
+        <hr />
+        <div class="row">
+            @foreach (var product in Model)
+            {
+                <div class="col-lg-4 mt-5">
+                    @if (product.ProductPhoto != null)
+                    {
+                        var base64 = Convert.ToBase64String(product.ProductPhoto);
+                        var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+
+                        <img src="@imgsrc" height="200px" width="200px" class="thumbnail" />
+                    }
+                    else
+                    {
+                        <img src="~/images/noimg.png" height="200px" width="200px" class="thumbnail" />
+                    }
+                    <div class="box-element product">
+                        <h6><strong>@product.Name</strong></h6>
+                        <hr>
+
+
+                        <a class="btn btn-secondary" asp-route-id="@product.Id" asp-action="Details">View</a>
+
+                        <button class="btn btn-info text-white">Add to Cart</button>
+
+                        <h4 style="display: inline-block; float: right"><strong class="text-success">$ @product.Price</strong></h4>
+
+                    </div>
+                </div>
+            }
+        </div>     
+
+    }
+    else
+    {
+        <h3 class="text-black-50">No Products Found</h3>
+    }
+
+</div>
+
+
+
+
+

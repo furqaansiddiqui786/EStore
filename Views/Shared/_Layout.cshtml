@@ -1,0 +1,114 @@
+﻿@using FlipShop_OnlineShopping.utilities
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - EStore</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="https://kit.fontawesome.com/786e687912.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+
+
+            <a class="navbar-brand" asp-area="Customer" asp-controller="Home" asp-action="Index"><img srcset="~/images/icon.png" height="60px" width="60px" style="margin-bottom:5px" />&nbsp;<span><b class="text-info" style="font-family:'Freestyle Script';font-size:40px;text-decoration-line:underline; text-decoration-style:wavy">EStore</b></span></a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <partial name="_LoginPartial" />
+                <ul class="navbar-nav flex-grow-1">
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+
+
+
+
+                    @if (User.IsInRole(SD.SuperAdminUser) || User.IsInRole(SD.AdminUser))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="Admin" asp-controller="Home" asp-action="Index">Manage Panel</a>
+                        </li>
+                    }
+
+                    @if (User.IsInRole(SD.SuperAdminUser) || User.IsInRole(SD.AdminUser) || User.IsInRole(SD.CustomerUser))
+                    {
+                        @if (HttpContextAccessor.HttpContext.Session.GetInt32("ssCartCount") != null)
+                        {
+                            <li class="nav-item">
+                                @{
+                                    var count = HttpContextAccessor.HttpContext.Session.GetInt32("ssCartCount");
+                                }
+                                <a class="nav-link text-white" asp-area="Customer" asp-controller="Cart" asp-action="Index"><i class="fas fa-shopping-cart fa-lg"></i>&nbsp;items <b>(@count)</b></a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Cart"><i class="fas fa-shopping-cart fa-lg"></i>&nbsp;items <b>(0)</b></a>
+                            </li>
+                        }
+                    }
+
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="Customer" asp-controller="Home" asp-action="About">About Us</a>
+                    </li>
+
+
+                    &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
+
+
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item float-right" style="width:70%">
+                            <form class="wrap">
+                                <div class="search">
+                                    <input value="@ViewData["GetProducts"]" name="productsearch" type="text" class="searchTerm" placeholder="search our store..........">
+                                    <button type="search" value="search" class="searchButton">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </li>
+                    </ul>
+
+
+
+                </ul>
+            </div>
+
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2020 - FlipShop_OnlineShopping - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

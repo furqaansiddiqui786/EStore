@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="jumbotron">
+    <h5>Welcome : <b>@User.Identity.Name</b></h5><hr />
+    <br />
+
+    <div class="text-center">
+        <a asp-action="Index" asp-controller="Categories" class="btn btn-success btn-lg text-white">View Categories</a>
+
+        &nbsp; &nbsp; &nbsp;
+
+        <a asp-action="Index" asp-controller="Products" class="btn btn-primary btn-lg text-white">View Products</a>
+
+        &nbsp; &nbsp; &nbsp;
+
+        <a asp-action="Index" asp-controller="User" class="btn btn-danger btn-lg text-white">Manage Users</a>
+
+    </div>
+
+</div>

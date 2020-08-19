@@ -1,0 +1,50 @@
+﻿@model IEnumerable<CategoriesModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<div class="row">
+    <div class="col-md-6">
+        <h4>All Categories</h4>
+    </div>
+    <div class="col-md-6">
+        <a asp-action="AddCategories" class="btn btn-info float-right">Add Categories</a>
+    </div>
+</div>
+
+<hr />
+
+<div>
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-striped border whitebg">
+            <tr class="table-secondary">
+                <th>@Html.DisplayNameFor(m => m.Name)</th>
+                <th></th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(m => item.Name)</td>
+                    <td class="text-right">
+                        <a class="btn btn-warning text-white">Edit</a> |
+                        <a class="btn btn-info text-white">Details</a> |
+                        <a class="btn btn-danger text-white">Delete</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <div class="container">
+            <center>
+                <h4 class="text-black-50 mt-5">Opps!! No Categories available right now. shall we add some?</h4>
+            </center>
+        </div>
+    }
+</div>
+
+

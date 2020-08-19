@@ -1,0 +1,89 @@
+﻿@model ReflectionIT.Mvc.Paging.PagingList<FlipShop_OnlineShopping.Models.ProductsModel>
+@using ReflectionIT.Mvc.Paging
+@addTagHelper *, Reflection.Mvc.Paging
+
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<br />
+<div class="row">
+    <div class="col-6">
+        <h2>All Products</h2>
+    </div>
+    <div class="col-6">
+        <div class="text-right">
+            <a asp-action="AddProducts" class="btn btn-info">Add Products</a>
+        </div>
+    </div>
+</div>
+
+<hr />
+<br />
+
+@*<form class="wrap">
+        <div class="search">
+            <input value="@ViewData["GetProducts"]" name="productsearch" type="text" class="searchTerm" placeholder="look for categories">
+            <button type="search" value="search" class="searchButton">
+                <i class="fa fa-search"></i>
+            </button>
+            <a asp-action="Index"><i class="fa fas-close"></i>Clear</a>
+        </div>
+    </form>*@
+
+<br />
+
+
+
+
+
+<div class="container">
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-striped border container">
+            <tr class="table-primary">
+                <th><label>Product Name</label></th>
+                <th><label>Product Category</label></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            @foreach (var products in Model)
+            {
+                <tr>
+                    <th>
+                        @Html.DisplayFor(m => products.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(m => products.CategoriesModel.Name)
+                    </th>
+
+                    <th></th>
+                    <th></th>
+
+                    <th>
+                        <a class="btn btn-warning text-white" asp-action="Edit" asp-route-id="@products.Id">Edit</a>
+                        &nbsp;
+                        <a class="btn btn-success" asp-action="View" asp-route-id="@products.Id">View</a>
+                        &nbsp;
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@products.Id">Delete</a>
+                    </th>
+                </tr>
+            }
+        </table>
+
+        <nav
+             style="font-size:18px;letter-spacing:8px;margin-left:50%;margin-right:50%;"
+             >
+            @await this.Component.InvokeAsync("Pager", new { PagingList = this.Model })
+        </nav>
+
+    }
+    else
+    {
+        <h3 class="text-black-50 text-center">No Products Found</h3>
+    }
+
+</div>
+

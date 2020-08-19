@@ -1,0 +1,73 @@
+﻿@model FlipShop_OnlineShopping.Models.ViewModel.ProductAndCategoryViewModel
+@using FlipShop_OnlineShopping.Extensions
+@{
+    ViewData["Title"] = "View";
+}
+
+<br />
+
+<div class="container">
+    <div class="row">
+
+        <!-- this column is for pic only-->
+        <div class="col-md-5 col-sm-4 container">
+            <div style="height:400px;width:400px;">
+                @if (Model.Products.ProductPhoto != null)
+                {
+                    var base64 = Convert.ToBase64String(Model.Products.ProductPhoto);
+                    var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+                    <img src='@imgsrc' height="100%" width="100%" />
+                }
+                else
+                {
+                    <img src="~/images/noimg.png" height="100%" width="100%" />
+                }
+
+            </div>
+        </div>
+
+        <!--  this column is for details -->
+        <div class="col-md-7 col-sm-6">
+            <div class="row form-group">
+                <div class="col-md-8">
+                    <br />
+                    <h2>@Model.Products.Name</h2>
+                    <hr />
+                    <p><b>Category</b> : <b style="font-size:18px" class="text-success">@Model.Products.CategoriesModel.Name</b></p>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-8">
+                    <p>@Model.Products.About</p>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-8">
+                    <h4>Price : <span class="text-success">$ @Model.Products.Price</span></h4>
+                </div>
+            </div>
+
+            <!--more two buttons will be added in this column i.e 1 for buy now and 2 for add to cart-->
+            <div class="row form-group">
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-6">
+                            <a class="text-white btn btn-success form-control" asp-route-id="@Model.Products.Id" asp-action="Edit">Edit Product Details</a>
+                        </div>
+                        <div class="col-6">
+                            <a class="text-white btn btn-warning form-control" asp-action="Index">Back to list</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
