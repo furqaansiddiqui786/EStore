@@ -116,6 +116,7 @@ namespace FlipShop_OnlineShopping.Areas.Identity.Pages.Account
                     if(!await _roleManager.RoleExistsAsync(SD.SuperAdminUser))
                     {
                         await _roleManager.CreateAsync(new IdentityRole(SD.SuperAdminUser));
+                        await _userManager.AddToRoleAsync(user, SD.SuperAdmin);
                     }
                     
                     if(!await _roleManager.RoleExistsAsync(SD.AdminUser))
@@ -127,13 +128,8 @@ namespace FlipShop_OnlineShopping.Areas.Identity.Pages.Account
                     {
                         await _roleManager.CreateAsync(new IdentityRole(SD.CustomerUser));
                     }
-                    
-                    await _userManager.AddToRoleAsync(user, SD.SuperAdmin);
-                    
-                    
-                    
-                    // this block of code checks for the roles and users signed in, if no user is signed in then it takes the user as customer
-                    if(role == SD.AdminUser)
+                    else{
+                        if(role == SD.AdminUser)
                     {
                         await _userManager.AddToRoleAsync(user, SD.AdminUser);
                     }
@@ -150,8 +146,9 @@ namespace FlipShop_OnlineShopping.Areas.Identity.Pages.Account
                             return LocalRedirect(returnUrl);
                         }
                     }
+                    }
                     
-
+           
                     return RedirectToAction("Index", "Home", new { area = "Admin" });
                     _logger.LogInformation("User created a new account with password.");
 
